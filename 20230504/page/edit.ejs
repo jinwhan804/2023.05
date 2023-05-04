@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>수정 페이지</h2>
+    <!-- form 태그 내에 action 속성을 설정하지 않으면 해당 페이지를 자동으로 잡는다 -->
+    <form method="post"> 
+        <label for="">id</label>
+        <input type="text" name="id" value="<%= data.id %>" disabled>
+        <label for="">이름</label>
+        <input type="text" name="name" value="<%= data.name %>">
+        <label for="">번호</label>
+        <input type="text" name="number" value="<%= data.number %>">
+        <label for="">시리즈</label>
+        <input type="text" name="series" value="<%= data.series %>">
+        <button>수정</button>
+    </form>
+</body>
+</html>
