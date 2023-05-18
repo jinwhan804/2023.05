@@ -132,8 +132,8 @@ INSERT INTO border (content, writer)VALUES("6번 게시물","koo6");
 -- SELECT 필드1, 필드2 FROM [테이블 명] : 필드1, 필드2에 대한 테이블 전체 조회
 SELECT id,writer FROM border;
 
--- SELECT * FROM [테이블명] WHERE [필드] LIKE "%AB" : 필드에 해당되는 내용 중에 AB로 시작하는 데이터 조회
--- SELECT * FROM [테이블명] WHERE [필드] LIKE "AB%" : 필드에 해당되는 내용 중에 AB로 끝나는 데이터 조회
+-- SELECT * FROM [테이블명] WHERE [필드] LIKE "AB%" : 필드에 해당되는 내용 중에 AB로 시작하는 데이터 조회
+-- SELECT * FROM [테이블명] WHERE [필드] LIKE "%AB" : 필드에 해당되는 내용 중에 AB로 끝나는 데이터 조회
 -- ALTER TABLE [기존 테이블명] RENAME [새로운 테이블명] : 테이블 이름 바꾸기
 ALTER TABLE user2 RENAME user3;
 
