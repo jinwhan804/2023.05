@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <img src="http://localhost:5000/img/git.bp_1685410781636.png" alt="">
+    <input type="text" id="imgs">
+    <input type="file" id="file">
+    <button id="uploadBtn">전송하기</button>
+</body>
+<script>
+    uploadBtn.onclick = ()=>{
+        // form data를 동적으로 만들어서 form의 데이터 형식으로 보내는 방법
+        // 자바 스크립트 내장 객체 : FormData
+        const form = new FormData();
+        // html상에서 name으로 키값을 전달하던 부분을 append 메소드로 설정.
+        // 첫 번째 매개 변수가 키, 두 번째 매개 변수가 값
+        form.append('imgs',imgs.value);
+
+        // input의 file 내용 가져오는 형태
+        console.log(file.files[0]);
+        form.append('upload',file.files[0]); 
+
+        axios.post('http://127.0.0.1:5000/upload',form,{
+            // 데이터를 보낼 때 파일이 포함되어 있으면 파일이 폼데이터로 전송되도록 설정
+            // 헤더의 내용으로 인코딩된 폼데이터로 전송한다고 설정
+            headers :{
+                "Content-Type" : "multipart/form-data"
+            }
+        }).then((e)=>{
+            console.log('잘 전달됨');
+            console.log(e.data);
+        }).catch((err)=>{
+            console.log(err);
+        })
+    }
+</script>
+</html>

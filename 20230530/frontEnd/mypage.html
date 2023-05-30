@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <img id="mainImg" src="" alt="">
+    <label for="">ID</label><br>
+    <input type="text" id="userId" disabled><br>
+    <label for="">Name</label><br>
+    <input type="text" id="userName"><br>
+    <label for="">Image</label><br>
+    <input type="file" id="userImg"><br>
+    <button id="updateBtn">수정하기</button>
+</body>
+<script>
+    async function getAPI(){
+        const {data} = await axios.get('http://127.0.0.1:5000/mypage',{
+            withCredentials : true
+        });
+        console.log(data)
+        userId.value = data.id;
+        userName.value = data.name;
+        mainImg.src = data.img;
+    }
+
+    getAPI();
+
+    updateBtn.onclick = ()=>{
+        const form = new FormData();
+
+        form.append('id',userId.value);
+        form.append('name', userName.value);
+        form.append('image', userImg.files[0]);
+
+        axios.post('http://127.0.0.1:5000/mypage',form,{
+            headers :{
+                "Content-Type" : "multipart/form-data"
+            },
+            withCredentials : true
+        }).then((e)=>{
+            console.log('잘 전달됨');
+            console.log(e.data);
+        }).catch((err)=>{
+            console.log(err);
+        });
+    }
+</script>
+</html>

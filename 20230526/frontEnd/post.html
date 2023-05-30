@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<style>
+    #isLoading{
+        background-color: white;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #isLoading img{
+        width: 300px;
+    }
+
+    #isLoading.disable{
+        display: none;
+    }
+
+    td{
+        cursor: pointer;
+    }
+</style>
+<body>
+    <div id="isLoading">
+        <img src="./img/loading.gif" alt="">
+    </div>
+    <h1>게시판</h1>
+    <a href="./insert.html">글 추가</a>
+    <table id="post_list">
+    </table>
+</body>
+<script>
+    async function getAPI(){
+        try {
+            axios.defaults.withCredentials = true;
+            const {data} = await axios.get('http://127.0.0.1:5000/post',{
+                // 브라우저가 쿠키를 서버로 전달할 수 있는 옵션
+                // withCredentials : true
+            });
+
+            post_list.innerHTML = "";
+
+            let _tr = document.createElement('tr');
+            let _th1 = document.createElement('th');
+            let _th2 = document.createElement('th');
+            let _th3 = document.createElement('th');
+            let _th4 = document.createElement('th');
+            _th1.innerHTML = "No.";
+            _th2.innerHTML = "제목";
+            _th3.innerHTML = "내용";
+            _th4.innerHTML = "작성자";
+            _tr.append(_th1,_th2,_th3,_th4);
+            post_list.append(_tr);
+
+            if(data == null){
+                return;
+            }else{
+                data.forEach((el,index) => {
+                    let _tr = document.createElement('tr');
+                    let _td1 = document.createElement('td');
+                    let _td2 = document.createElement('td');
+                    let _td3 = document.createElement('td');
+                    let _td4 = document.createElement('td');
+                    _td1.innerHTML = index + 1;
+                    _td2.innerHTML = el.title;
+                    _td3.innerHTML = el.content;
+                    _td4.innerHTML = el.user_name;
+                    _tr.append(_td1,_td2,_td3,_td4);
+                    post_list.append(_tr);
+
+                    _tr.onclick = async()=>{
+                        let {data} = await axios.post('http://127.0.0.1:5000/post/detail',{
+                            data : el.id
+                        });
+                        console.log(data);
+                        location.href = data;
+                    }
+                });
+            }
+
+            isLoading.classList.add('disable');
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    getAPI();
+</script>
+</html>

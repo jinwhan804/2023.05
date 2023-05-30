@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 백엔드를 배포해놨다고 가정할 때 백엔드의 요청 경로를 작성해주면 된다. -->
+    <!-- 예: http://do.com/signUp -->
+    <form action="http://127.0.0.1:5000/signUp" method="post">
+        <label for="">이름</label><br>
+        <input type="text" name="name"><br>
+        <label for="">나이</label><br>
+        <input type="text" name="age"><br>
+        <label for="">ID</label><br>
+        <input type="text" name="user_id"><br>
+        <label for="">PW</label><br>
+        <input type="password" name="user_pw"><br>
+        <button>회원 가입</button>
+    </form>
+</body>
+</html>

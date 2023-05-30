@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <label for="">ID</label><br>
+    <input type="text" id="userId"><br>
+    <label for="">PW</label><br>
+    <input type="text" id="userPw"><br>
+    <label for="">Name</label><br>
+    <input type="text" id="userName"><br>
+    <button id="signUpBtn">회원가입</button>
+</body>
+<script>
+    signUpBtn.onclick = async()=>{
+        const form = new FormData();
+
+        form.append('user_id',userId.value);
+        form.append('user_pw',userPw.value);
+        form.append('name',userName.value);
+
+        await axios.post('http://127.0.0.1:5000/signup',form,{
+            headers : {
+                "Content-Type" : "application/json"
+            },
+            withCredentials : true
+        }).then((e)=>{
+            console.log('잘 전달됨');
+            console.log(e.data);
+            location.href = e.data;
+        }).catch((err)=>{
+            console.log(err);
+        })
+    }
+</script>
+</html>
